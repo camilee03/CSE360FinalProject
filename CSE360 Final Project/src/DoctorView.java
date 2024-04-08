@@ -20,9 +20,6 @@ import javafx.geometry.Pos;
 
 public class DoctorView extends Application{
 	public boolean viewLayout = true;
-	public boolean patientIntakeForm;
-	public boolean CTScanTechView;
-	public boolean CTScanPatientView;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -61,21 +58,4 @@ public class DoctorView extends Application{
 		stage.show();
 	}
 
-
-	public Popup PrintInfo(String file, Boolean isResults, Stage stage) {
-		
-		Label results;
-		if (!isResults) {
-			// print patient info
-		}
-		else {
-			// print result files
-		}
-		HBox layout = new HBox(60);
-		layout.setMaxSize(300, 300);
-		Popup popup = new Popup();
-		popup.getContent().add(layout);
-		
-		return popup;
-	}
 }
