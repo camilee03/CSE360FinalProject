@@ -30,27 +30,83 @@ public class DoctorView extends Application{
 		}
 	
 	public void viewLayout (Stage stage) {
+	// Style stuff
+		String border = "-fx-border-color: black;\n" +
+				"-fx-border-insets: 0;\n" +
+		        "-fx-border-width: 2;\n" +
+		        "-fx-border-style: solid;\n";
+		
 	// Setting up Panes
 		VBox layout = new VBox(40);
 		layout.setMinSize(200,350);
 		layout.setAlignment(Pos.CENTER);
-		
-		HBox boxContainer = new HBox(100);
-		boxContainer.setMinSize(200,350);
-		boxContainer.setAlignment(Pos.CENTER);
-		boxContainer.setBackground(new Background(new BackgroundFill(Color.web("#d3d3d3", 1.0),
+		layout.setBackground(new Background(new BackgroundFill(Color.web("#fadadd", 1.0),
 			    CornerRadii.EMPTY,
 			    Insets.EMPTY)));
+		layout.setStyle(border);
 		
-		Scene scene = new Scene(layout, 900, 500, Color.web("#fadadd", 1.0));	
+		HBox boxContainer = new HBox(20);
+		boxContainer.setMinSize(700,300);
+		boxContainer.setMaxSize(700,300);
+		boxContainer.setAlignment(Pos.CENTER);
+		boxContainer.setBackground(new Background(new BackgroundFill(Color.web("#f0f0f0", 1.0),
+			    CornerRadii.EMPTY,
+			    Insets.EMPTY)));
+		boxContainer.setStyle(border);
 		
+		Scene scene = new Scene(layout, 900, 500, Color.web("#fadadd", 1.0));
+		scene.setFill(Color.web("#fadadd"));
+		
+		
+	// Today's visit
+		VBox visitBox = new VBox();
+		visitBox.setMinSize(200, 250);
+		visitBox.setMaxSize(200, 250);
+		visitBox.setBackground(new Background(new BackgroundFill(Color.web("#d3d3d3", 1.0),
+			    CornerRadii.EMPTY,
+			    Insets.EMPTY)));
+		visitBox.setStyle(border);
+		
+	// Prescriptions, diagnosis, and treatments
+		VBox treatmentBoxes = new VBox(10);
+		
+		Label prescriptionLabel = new Label("Prescriptions");
+		VBox prescriptionBox = new VBox();
+		prescriptionBox.setMinSize(200, 100);
+		prescriptionBox.setMaxSize(200, 100);
+		prescriptionBox.setBackground(new Background(new BackgroundFill(Color.web("#d3d3d3", 1.0),
+			    CornerRadii.EMPTY,
+			    Insets.EMPTY)));
+		prescriptionBox.setStyle(border);
+
+		Label diagnosisLabel = new Label("Diagnosis and Treatment");
+		VBox diagnosisBox = new VBox();
+		diagnosisBox.setMinSize(200, 100);
+		diagnosisBox.setMaxSize(200, 100);
+		diagnosisBox.setBackground(new Background(new BackgroundFill(Color.web("#d3d3d3", 1.0),
+			    CornerRadii.EMPTY,
+			    Insets.EMPTY)));
+		diagnosisBox.setStyle(border);
+		
+		treatmentBoxes.getChildren().addAll(prescriptionLabel, prescriptionBox, diagnosisLabel, diagnosisBox);
+		treatmentBoxes.setAlignment(Pos.CENTER);
+		
+	// Patient History
+		VBox historyBox = new VBox();
+		historyBox.setMinSize(200, 250);
+		historyBox.setMaxSize(200, 250);
+		historyBox.setBackground(new Background(new BackgroundFill(Color.web("#d3d3d3", 1.0),
+			    CornerRadii.EMPTY,
+			    Insets.EMPTY)));
+		historyBox.setStyle(border);
 	
 		
-		// Title
+	// Title
 		Label mainTitle = new Label("Doctor View: Patient Visit");
 		mainTitle.setFont(new Font(20.0));
 		
 		// Add components to layout
+		boxContainer.getChildren().addAll(visitBox, treatmentBoxes, historyBox);
 		layout.getChildren().addAll(mainTitle, boxContainer);
 				
 		stage.setTitle("Doctor View: Patient Visit");
