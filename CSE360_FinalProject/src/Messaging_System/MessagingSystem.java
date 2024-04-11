@@ -52,7 +52,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 
 
-public class ASUHelloWorldJavaFX extends Application {
+public class MessagingSystem extends Application {
 
     private static final String MESSAGES_DIRECTORY = "messages";
 
