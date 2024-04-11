@@ -1,4 +1,4 @@
-package cse360proj;
+package asuHelloWorldJavaFX;
 
 import java.io.FileWriter;
 import java.io.IOException;

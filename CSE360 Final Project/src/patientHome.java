@@ -70,6 +70,13 @@ public class patientHome {
 				
 			}
 		};
+		EventHandler<ActionEvent> contact1 = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				LoginPage page = new LoginPage();
+				page.start(primaryStage);			
+			}
+		};
+		logOut.setOnAction(contact1);
 		
 		
 		EventHandler<ActionEvent> history = new EventHandler<ActionEvent>() {
@@ -88,14 +95,19 @@ public class patientHome {
 				MessagingSystem asuApp= new MessagingSystem();
 		        
 		        // Call the start method of ASUHelloWorldJavaFX to initialize and display the UI
-		        asuApp.start(primaryStage);
+		        try {
+					asuApp.start(primaryStage);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		};
 		
 		messages.setOnAction(message);
 		
 		
-		contactInfo.setOnAction(contact);
+		contactInfo.setOnAction(contact1);
 		
 		Scene scene = new Scene(hbox,800,500);
 		
