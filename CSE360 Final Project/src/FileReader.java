@@ -1,9 +1,6 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 public class FileReader {
 	public static String name;
     private static String fileLocation = "/Users/appshah/Documents/" + name + ".txt";
@@ -40,11 +37,13 @@ public class FileReader {
     	// returns relevant prescription/s if available
     	public File[] getPrescriptions() {
     		File[] list = null;
+    		int listLength = 0;
     		
     		for (int i=0; i<treatments.length; i++) {
     			fileLocation = "/Users/appshah/Documents/" + treatments[i] + ".txt";
     			if ((new File(fileLocation)).exists()) {
-    				list.add(new File(fileLocation));
+    				list[0] = (new File(fileLocation));
+    				listLength ++;
     			}
     		}
     		return list;
@@ -110,10 +109,10 @@ public class FileReader {
         try {
             isReader = new InputStreamReader(new FileInputStream(currentFile), StandardCharsets.UTF_8);
             
-            JsonReader myReader = new JsonReader(isReader);
-            Prescriptions prescription = gson.fromJson(myReader, Prescriptions.class);
+            //JsonReader myReader = new JsonReader(isReader);
+            //Prescriptions prescription = gson.fromJson(myReader, Prescriptions.class);
             
-            crunchifyLog("Prescription Name: " + prescription.prescriptionName);
+            //crunchifyLog("Prescription Name: " + prescription.prescriptionName);
             
         } catch (Exception e) {
             crunchifyLog("error load cache from file " + e.toString());
