@@ -199,19 +199,21 @@ public class LoginPage extends Application{
         toDoctor.setMinHeight(windowHeight/15);
         
         toDoctor.setOnAction(new EventHandler<>() {
-            public void handle(ActionEvent event) {
-                
+        	public void handle(ActionEvent event) {
+            	DoctorView doctorView = new DoctorView();
+            	doctorView.viewLayout(primaryStage);
             }
         });
         
-        Button toNurse = new Button("To DoctorView");
+        Button toNurse = new Button("To Nurse View");
         toNurse.setStyle("-fx-background-color: #ffffff");
         toNurse.setMinWidth(windowWidth/5);
         toNurse.setMinHeight(windowHeight/15);
 
         toNurse.setOnAction(new EventHandler<>() {
             public void handle(ActionEvent event) {
-                
+            	NurseScreen nurseScreen = new NurseScreen(primaryStage);
+            	nurseScreen.show();
             }
         });
         
