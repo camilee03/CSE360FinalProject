@@ -191,13 +191,40 @@ public class LoginPage extends Application{
         
         Label titleL = new Label("Welcome to NurseNet!");
         
+        HBox container = new HBox(windowWidth/3);
+        
+        Button toDoctor = new Button("To DoctorView");
+        toDoctor.setStyle("-fx-background-color: #ffffff ");
+        toDoctor.setMinWidth(windowWidth/5);
+        toDoctor.setMinHeight(windowHeight/15);
+        
+        toDoctor.setOnAction(new EventHandler<>() {
+        	public void handle(ActionEvent event) {
+            	DoctorView doctorView = new DoctorView();
+            	doctorView.viewLayout(primaryStage);
+            }
+        });
+        
+        Button toNurse = new Button("To Nurse View");
+        toNurse.setStyle("-fx-background-color: #ffffff");
+        toNurse.setMinWidth(windowWidth/5);
+        toNurse.setMinHeight(windowHeight/15);
+
+        toNurse.setOnAction(new EventHandler<>() {
+            public void handle(ActionEvent event) {
+            	NurseScreen nurseScreen = new NurseScreen(primaryStage);
+            	nurseScreen.show();
+            }
+        });
+        
+        container.getChildren().addAll(toDoctor, toNurse);
         l1.getChildren().add(new Label("Username:"));
         l1.getChildren().add(UserName);
         l1.getChildren().add(new Label("Password:"));
         l1.getChildren().add(Password);
         l1.getChildren().add(btn);
-        l1.getChildren().add(but1);
         l1.getChildren().add(back);
+        l1.getChildren().add(container);
         
         login.setCenter(l1);
         login.setTop(titleL);
