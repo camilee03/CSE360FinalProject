@@ -16,15 +16,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 
-public class NurseScreen {
+public class Over13 {
     private Stage stage;
     private Set<String> patientIDs;	
 
-    public NurseScreen(Stage stage) {
+    public Over13(Stage stage) {
         this.stage = stage;
     }
 
-    public void show() {
+    public void show(String fileName, String age) {
     	BorderPane mainPane = new BorderPane();
     	
     	VBox promptBoxL = new VBox();
@@ -52,14 +52,14 @@ public class NurseScreen {
     	Label pAppointDate = new Label("Appointment Date:");
     	
     	// Before checking age color grey
-    		pWeight.setStyle("-fx-text-fill: grey");
-    		pHeight.setStyle("-fx-text-fill: grey");
-    		pBodyTemp.setStyle("-fx-text-fill: grey");
-    		pBloodPressure.setStyle("-fx-text-fill: grey");
-    		pAppointDate.setStyle("-fx-text-fill: grey");
+    		pWeight.setStyle("-fx-text-fill: black");
+    		pHeight.setStyle("-fx-text-fill: black");
+    		pBodyTemp.setStyle("-fx-text-fill: black");
+    		pBloodPressure.setStyle("-fx-text-fill: black");
+    		pAppointDate.setStyle("-fx-text-fill: black");
     	
     	// Prompt Text Fields
-    	TextField tAge = new TextField();
+    	TextField tAge = new TextField(age);
     	TextField tWeight = new TextField();
     	TextField tHeight = new TextField();
     	TextField tBodyTemp = new TextField();
@@ -78,18 +78,12 @@ public class NurseScreen {
     	
     			// text box grey: #d3d3d3 & border black
     		tAge.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 1px;");
-    		tWeight.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: grey; -fx-border-width: 1px;");
-    		tHeight.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: grey; -fx-border-width: 1px;");
-    		tBodyTemp.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: grey; -fx-border-width: 1px;");
-    		tBloodPressure.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: grey; -fx-border-width: 1px;");
-    		tAppointDate.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: grey; -fx-border-width: 1px;");
+    		tWeight.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 1px;");
+    		tHeight.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 1px;");
+    		tBodyTemp.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 1px;");
+    		tBloodPressure.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 1px;");
+    		tAppointDate.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black; -fx-border-color: black; -fx-border-width: 1px;");
     		
-    		
-    		tWeight.setEditable(false);
-    		tHeight.setEditable(false);
-    		tBodyTemp.setEditable(false);
-    		tBloodPressure.setEditable(false);
-    		tAppointDate.setEditable(false);
     		
     	// Save Button
     	GridPane gConfirmButton = new GridPane();
@@ -97,8 +91,6 @@ public class NurseScreen {
             
        confirmButton.setOnAction(e -> {
     	   
-    	   if(Integer.parseInt(tAge.getText()) <= 13) {
-    		  
 				// Save patient information
 	    		try (BufferedWriter writer = new BufferedWriter(new FileWriter("nurseInfo.txt"))) {
 		            // Write patient information
@@ -107,22 +99,26 @@ public class NurseScreen {
 		    		writer.newLine();
 		            writer.write("Age: " + tAge.getText());
 		            writer.newLine();
+		            writer.write("Weight: " + tWeight.getText());
+		            writer.newLine();
+		            writer.write("Height: " + tHeight.getText());
+		            writer.newLine();
+		            writer.write("Body Temperature: " + tBodyTemp.getText());
+		            writer.newLine();
+		            writer.write("Blood Pressure: " + tBloodPressure.getText());
+		            writer.newLine();
+		            writer.write("Appointment Date: " + tAppointDate.getText());
+		            writer.newLine();
 		            
 		        } catch (IOException e1) {
 		            e1.printStackTrace();
 		        }
-	    		
-	    		// Next Screen
-	    		MedHistScreen medHistScreen = new MedHistScreen(stage);
-   	     	   	medHistScreen.show("nurseInfo.txt");
 		        
-    	   } else {
-    		   
-	            // Next Screen
-	    		Over13 over13 = new Over13(stage);
-	    		over13.show("nurseInfo.txt", tAge.getText());
-     	   
-    	   }
+	         
+   	         // Next Screen
+   	    		MedHistScreen medHistScreen = new MedHistScreen(stage);
+   	     	   	medHistScreen.show("nurseInfo.txt");
+    		  
             
         }); 
             
