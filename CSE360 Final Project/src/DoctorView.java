@@ -29,6 +29,7 @@ public class DoctorView extends Application{
 		if (viewLayout) { viewLayout(stage); }
 		}
 	
+	
 	public void viewLayout (Stage stage) {
 	// Style stuff
 		String border = "-fx-border-color: black;\n" +
@@ -45,7 +46,7 @@ public class DoctorView extends Application{
 			    Insets.EMPTY)));
 		layout.setStyle(border);
 		
-		HBox boxContainer = new HBox(20);
+		HBox boxContainer = new HBox(30);
 		boxContainer.setMinSize(700,300);
 		boxContainer.setMaxSize(700,300);
 		boxContainer.setAlignment(Pos.CENTER);
@@ -59,6 +60,8 @@ public class DoctorView extends Application{
 		
 		
 	// Today's visit
+		VBox visit = new VBox(10);
+		
 		VBox visitBox = new VBox();
 		visitBox.setMinSize(200, 250);
 		visitBox.setMaxSize(200, 250);
@@ -66,6 +69,10 @@ public class DoctorView extends Application{
 			    CornerRadii.EMPTY,
 			    Insets.EMPTY)));
 		visitBox.setStyle(border);
+		
+		Label visitLabel = new Label("Today's Visit");
+		visit.getChildren().addAll(visitLabel, visitBox);
+		visit.setAlignment(Pos.CENTER);
 		
 	// Prescriptions, diagnosis, and treatments
 		VBox treatmentBoxes = new VBox(10);
@@ -92,6 +99,8 @@ public class DoctorView extends Application{
 		treatmentBoxes.setAlignment(Pos.CENTER);
 		
 	// Patient History
+		VBox history = new VBox(10);
+		
 		VBox historyBox = new VBox();
 		historyBox.setMinSize(200, 250);
 		historyBox.setMaxSize(200, 250);
@@ -99,14 +108,17 @@ public class DoctorView extends Application{
 			    CornerRadii.EMPTY,
 			    Insets.EMPTY)));
 		historyBox.setStyle(border);
-	
+		
+		Label historyLabel = new Label("Patient's History");
+		history.getChildren().addAll(historyLabel, historyBox);
+		history.setAlignment(Pos.CENTER);
 		
 	// Title
 		Label mainTitle = new Label("Doctor View: Patient Visit");
 		mainTitle.setFont(new Font(20.0));
 		
 		// Add components to layout
-		boxContainer.getChildren().addAll(visitBox, treatmentBoxes, historyBox);
+		boxContainer.getChildren().addAll(visit, treatmentBoxes, history);
 		layout.getChildren().addAll(mainTitle, boxContainer);
 				
 		stage.setTitle("Doctor View: Patient Visit");
