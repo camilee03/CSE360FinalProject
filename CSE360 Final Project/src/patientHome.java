@@ -1,3 +1,4 @@
+package asuHelloWorldJavaFX;
 import java.io.FileNotFoundException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -84,7 +85,10 @@ public class patientHome {
 		EventHandler<ActionEvent> message = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				
-				//patient message portal
+				MessagingSystem asuApp= new MessagingSystem();
+		        
+		        // Call the start method of ASUHelloWorldJavaFX to initialize and display the UI
+		        asuApp.start(primaryStage);
 			}
 		};
 		
