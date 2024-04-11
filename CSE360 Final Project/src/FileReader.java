@@ -1,29 +1,61 @@
-package asuHelloWorldJavaFX;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
+//Save data to file
+// writeToFile(gson.toJson(prescription));
+
+// Retrieve data from file
+// readFromFile();
+
 
 public class FileReader {
-	public static String name;
-    private static String fileLocation = "/Users/appshah/Documents/" + name + ".txt";
+    private static String prescriptionFileLocation = "/Documents/Prescriptions/";
+    private static String diagnosisFileLocation = "/Documents/Diagnoses/";
+    
+    public String[] prescriptionList = new String[100];
+    private int prescriptionLength = 0;
+    public String[] diagnosisList = new String[100];
+    private int diagnosisLength = 0;
     //private static final Gson gson = new Gson();
     
     // Prescription Manager
-    private static class Prescriptions {
+    public class Prescriptions {
     	public String prescriptionName;
     	public String[] dosages;
     	public String[] symptomsCured;
     	public String[] sideEffects;
         
+    	// constructor
     	public Prescriptions(String prescriptionName, String[] dosages, String[] symptomsCured, String[] sideEffects) {
     		this.prescriptionName = prescriptionName;
     		this.dosages = dosages;
     		this.symptomsCured = symptomsCured;
     		this.sideEffects = sideEffects;
+    		prescriptionList[prescriptionLength] = prescriptionName;
+    		
+    		String dosageText = "";
+    		for (int i=0; i<dosages.length; i++) {
+    			dosageText = dosageText + ", " + dosages[i];
+    		}
+    		
+    		String symptomText = "";
+    		for (int i=0; i<symptomsCured.length; i++) {
+    			symptomText = symptomText + ", " + symptomsCured[i];
+    		}
+    		
+    		String effectsText = "";
+    		for (int i=0; i<sideEffects.length; i++) {
+    			effectsText = effectsText + ", " + sideEffects[i];
+    		}
+    		
+    		writeToFile(prescriptionName + ":\n" + dosageText + "\n" + symptomText + "\n" + effectsText, 
+    				prescriptionFileLocation + prescriptionName + ".txt");
     	}  
     }
     
     // Diagnosis Manager
-    private static class Diagnoses {
+    public class Diagnoses {
     	public String diagnosisName;
     	public String[] treatments;
     	public String[] symptoms;
@@ -33,6 +65,21 @@ public class FileReader {
     	        this.diagnosisName = diagnosisName;
     	        this.treatments = treatments;
     	        this.symptoms = symptoms;
+    	        diagnosisList[diagnosisLength] = diagnosisName;
+    	        diagnosisLength++;
+    	        
+    	        String treatmentText = "";
+        		for (int i=0; i<treatments.length; i++) {
+        			treatmentText = treatmentText + ", " + treatments[i];
+        		}
+        		
+        		String symptomText = "";
+        		for (int i=0; i<symptoms.length; i++) {
+        			symptomText = symptomText + ", " + symptoms[i];
+        		}
+    	        
+        		writeToFile(diagnosisName + ": \n" + treatmentText + "\n" + symptomText, 
+        				diagnosisFileLocation + diagnosisName + ".txt");
     	    }
     	
     	// returns relevant prescription/s if available
@@ -41,9 +88,8 @@ public class FileReader {
     		int listLength = 0;
     		
     		for (int i=0; i<treatments.length; i++) {
-    			fileLocation = "/Users/appshah/Documents/" + treatments[i] + ".txt";
-    			if ((new File(fileLocation)).exists()) {
-    				list[0] = (new File(fileLocation));
+    			if ((new File(prescriptionFileLocation + treatments[i] + ".txt")).exists()) {
+    				list[0] = (new File(prescriptionFileLocation));
     				listLength ++;
     			}
     		}
@@ -51,18 +97,46 @@ public class FileReader {
     	}
     }
     
-    // Main Method
-    public static void main(String[] args) {
-        // Save data to file
-        // writeToFile(gson.toJson(prescription));
-        
-        // Retrieve data from file
-        // readFromFile();
+    // returns all the added Prescriptions
+    public String GetAllPrescriptions() {
+    	String list = "";
+		
+		for (int i=0; i < prescriptionList.length; i++) {
+			if ((new File(prescriptionFileLocation + prescriptionList[i] + ".txt")).exists()) {
+				list = list + "\n" + readFromFile(prescriptionFileLocation + prescriptionList[i] + ".txt");
+			}
+		}
+		return list;
+    }
+    
+    // returns all the added Diagnoses
+    public String GetAllDiagnoses() {
+    	String list = "";
+		
+		for (int i=0; i < diagnosisList.length; i++) {
+			if ((new File(diagnosisFileLocation + diagnosisList[i] + ".txt")).exists()) {
+				list = list + "\n" + readFromFile(diagnosisFileLocation + diagnosisList[i] + ".txt");
+			}
+		}
+		return list;
+    }
+    
+    
+    public void SampleFileAdd() {
+    	Prescriptions aderol = new Prescriptions("aderol", 
+    			new String[] {"20 mg", "10 mg"}, 
+    			new String[] {"headache", "muscle pain"},  
+    			new String[] {"pain"});
+    	
+    	Diagnoses migrane = new Diagnoses("migrane", 
+    			new String[] {"aderol", "ice"}, 
+    			new String[] {"headache"});
+    	
     }
     
     // Save to File Utility
-    private static void writeToFile(String myData) {
-        
+    private static void writeToFile(String myData, String fileLocation) {
+    	
         File currentFile = new File(fileLocation);
         
         // Tests whether the file or directory denoted by this abstract pathname exists.
@@ -99,8 +173,7 @@ public class FileReader {
     }
     
     // Read From File Utility
-    public static void readFromFile() {
-    	// Creates new file
+    public static String readFromFile(String fileLocation) {
         File currentFile = new File(fileLocation);
         
         if (!currentFile.exists())
@@ -109,22 +182,22 @@ public class FileReader {
         InputStreamReader isReader;
         try {
             isReader = new InputStreamReader(new FileInputStream(currentFile), StandardCharsets.UTF_8);
-            
-            //JsonReader myReader = new JsonReader(isReader);
-            //Prescriptions prescription = gson.fromJson(myReader, Prescriptions.class);
-            
-            //crunchifyLog("Prescription Name: " + prescription.prescriptionName);
-            
+            String output = "";
+            Scanner scanner = new Scanner(currentFile);
+            while (scanner.hasNextLine()) {
+            	output = output + "\n" + scanner.nextLine();
+            }
+            return output;
         } catch (Exception e) {
             crunchifyLog("error load cache from file " + e.toString());
         }
-        
-        crunchifyLog("\nFile loaded successfully: " + fileLocation);
-        
+        return "";
     }
     
+    // Print Log
     private static void crunchifyLog(String string) {
         System.out.println(string);
     }
+    
     
 }

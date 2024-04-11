@@ -1,4 +1,3 @@
-package asuHelloWorldJavaFX;
 import java.util.*;
 
 import javafx.application.Application;
@@ -71,6 +70,11 @@ public class DoctorView extends Application{
 			    Insets.EMPTY)));
 		visitBox.setStyle(border);
 		
+		TextField visitNotes = new TextField("Info on patient");
+		visitNotes.setMinSize(200, 250);
+		visitNotes.setMaxSize(200, 250);
+		visitBox.getChildren().addAll(visitNotes);
+		
 		Label visitLabel = new Label("Today's Visit");
 		visit.getChildren().addAll(visitLabel, visitBox);
 		visit.setAlignment(Pos.CENTER);
@@ -78,6 +82,7 @@ public class DoctorView extends Application{
 	// Prescriptions, diagnosis, and treatments
 		VBox treatmentBoxes = new VBox(10);
 		
+		// stores prescriptions and displays them
 		Label prescriptionLabel = new Label("Prescriptions");
 		VBox prescriptionBox = new VBox();
 		prescriptionBox.setMinSize(200, 100);
@@ -86,7 +91,16 @@ public class DoctorView extends Application{
 			    CornerRadii.EMPTY,
 			    Insets.EMPTY)));
 		prescriptionBox.setStyle(border);
+		Label prescriptions = new Label();
+		
+		// gets list of prescriptions
+		FileReader file = new FileReader();
+		file.SampleFileAdd();
+		String prescriptionList = file.GetAllPrescriptions();
+		prescriptions.setText(prescriptionList);
+		prescriptionBox.getChildren().addAll(prescriptions);
 
+		// stores diagnosis and displays it
 		Label diagnosisLabel = new Label("Diagnosis and Treatment");
 		VBox diagnosisBox = new VBox();
 		diagnosisBox.setMinSize(200, 100);
@@ -95,6 +109,12 @@ public class DoctorView extends Application{
 			    CornerRadii.EMPTY,
 			    Insets.EMPTY)));
 		diagnosisBox.setStyle(border);
+		Label diagnoses = new Label();
+		
+		// gets list of prescriptions
+		String descriptionList = file.GetAllDiagnoses();
+		diagnoses.setText(descriptionList);
+		diagnosisBox.getChildren().addAll(diagnoses);
 		
 		treatmentBoxes.getChildren().addAll(prescriptionLabel, prescriptionBox, diagnosisLabel, diagnosisBox);
 		treatmentBoxes.setAlignment(Pos.CENTER);
