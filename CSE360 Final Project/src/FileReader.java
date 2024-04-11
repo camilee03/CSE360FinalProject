@@ -5,8 +5,9 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 public class FileReader {
-    private static final String fileLocation = "/Users/appshah/Documents/crunchify.txt";
-    private static final Gson gson = new Gson();
+	public static String name;
+    private static String fileLocation = "/Users/appshah/Documents/" + name + ".txt";
+    //private static final Gson gson = new Gson();
     
     // Prescription Manager
     private static class Prescriptions {
@@ -37,17 +38,17 @@ public class FileReader {
     	    }
     	
     	// returns relevant prescription/s if available
-    	public PrescriptionManager[] getPrescriptions() {
-    		PrescriptionManager[] list = null;
+    	public File[] getPrescriptions() {
+    		File[] list = null;
     		
     		for (int i=0; i<treatments.length; i++) {
-    			// if prescription file exists with treatment name
-    			//add Prescription to list
+    			fileLocation = "/Users/appshah/Documents/" + treatments[i] + ".txt";
+    			if ((new File(fileLocation)).exists()) {
+    				list.add(new File(fileLocation));
+    			}
     		}
     		return list;
-    		
     	}
-    	
     }
     
     // Main Method
@@ -59,7 +60,7 @@ public class FileReader {
         // readFromFile();
     }
     
-    // Save to file Utility
+    // Save to File Utility
     private static void writeToFile(String myData) {
         
         File currentFile = new File(fileLocation);
@@ -81,7 +82,6 @@ public class FileReader {
         }
         
         try {
-            
             // Convenience class for writing character files
             FileWriter fileWriter;
             fileWriter = new FileWriter(currentFile.getAbsoluteFile(), true);
@@ -127,5 +127,4 @@ public class FileReader {
         System.out.println(string);
     }
     
-}
 }
