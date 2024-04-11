@@ -1,4 +1,4 @@
-
+package asuHelloWorldJavaFX;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -362,6 +362,10 @@ public class LoginPage extends Application{
         				errorL.setText("Patient ID does not exist");
         			}
 					Scene ui2 = null;
+					if (tmp == null) {
+						errorL.setText("Files are missing, please try again");
+						return;
+					}
 					ui2 = tmp.showResults(UserName.getText(), windowWidth, windowHeight, back);
 					if(ui2 == null) {
 						errorL.setText("Files are missing, please try again");
@@ -380,10 +384,9 @@ public class LoginPage extends Application{
         	}
         });
         
-        toRegister.setOnAction(new EventHandler<>() {
-        	public void handle(ActionEvent event) {
-        		primaryStage.setScene(registerUI);
-        	}
+        toRegister.setOnAction(event -> {
+            PatientView patient = new PatientView();
+            patient.CreateLogin(primaryStage);
         });
         
         toNext.setOnAction(new EventHandler<>(){

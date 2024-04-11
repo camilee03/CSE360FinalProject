@@ -1,4 +1,4 @@
-
+package asuHelloWorldJavaFX;
 public class UserInfo {
 	private String UUID;
 	private String someInfo;
