@@ -70,13 +70,13 @@ public class patientHome {
 				
 			}
 		};
-		EventHandler<ActionEvent> contact1 = new EventHandler<ActionEvent>() {
+		EventHandler<ActionEvent> LogOut = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				LoginPage page = new LoginPage();
 				page.start(primaryStage);			
 			}
 		};
-		logOut.setOnAction(contact1);
+		logOut.setOnAction(LogOut);
 		
 		
 		EventHandler<ActionEvent> history = new EventHandler<ActionEvent>() {
@@ -107,7 +107,7 @@ public class patientHome {
 		messages.setOnAction(message);
 		
 		
-		contactInfo.setOnAction(contact1);
+		contactInfo.setOnAction(contact);
 		
 		Scene scene = new Scene(hbox,800,500);
 		

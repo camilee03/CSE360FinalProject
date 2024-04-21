@@ -28,7 +28,7 @@ public class historyView {
 		Font areaFont = Font.font(15);
 		
 		TextArea area = new TextArea();
-		area.setText("kjnksndkjfnsjlfbbhdbsjhbdhbfsjhbdfkhds");
+		area.setText("Patient history placeholder");
 		area.setFont(areaFont);
 		area.setPrefColumnCount(15);
 		area.setPrefHeight(300);
